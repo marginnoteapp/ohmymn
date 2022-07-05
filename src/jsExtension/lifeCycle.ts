@@ -15,6 +15,7 @@ import { readProfile, removeProfile, writeProfile } from "~/utils/profile"
 import { Range } from "~/utils/profile/typings"
 import { gestureHandlers } from "./handleGestureEvent"
 import { eventHandlers } from "./handleReceivedEvent"
+import statistics from "./statistics"
 import { closePanel, layoutViewController } from "./switchPanel"
 
 const SettingViewController = JSB.defineClass(
@@ -44,6 +45,7 @@ const addonDidConnect = () => {
 const sceneWillConnect = () => {
   console.log("Open a new window", "lifeCycle")
   _window = self.window
+  statistics()
   // Multiple windows will share global variables, so they need to be saved to self.
   self.panelStatus = false
   self.globalProfile = deepCopy(globalProfilePreset)

@@ -1,17 +1,11 @@
-import { MN } from "~/const"
 import lang from "~/lang"
 import { PanelControl } from "~/modules/addon/typings"
-import { checkInputCorrect, actions4text, actions4card } from "~/synthesizer"
+import { checkInputCorrect, actions4card } from "~/synthesizer"
 import { IRowButton, MbBookNote } from "~/typings"
 import { CellViewType, UIAlertViewStyle } from "~/typings/enum"
-import { showHUD, HUDController } from "~/utils/common"
-import {
-  getSelectNodes,
-  getNodeTree,
-  undoGroupingWithRefresh
-} from "~/utils/note"
+import { undoGroupingWithRefresh } from "~/utils/note"
 import popup from "~/utils/popup"
-import { getMNLinkValue, manageProfileAction } from "~/utils/profile"
+import { getMNLinkValue } from "~/utils/profile"
 import { closePanel } from "./switchPanel"
 
 export default async (

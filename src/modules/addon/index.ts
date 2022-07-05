@@ -1,6 +1,5 @@
 import { Addon } from "~/const"
 import { CellViewType } from "~/typings/enum"
-import { checkInteger } from "~/utils/checkInput"
 import { defineConfig } from "~/profile"
 import { lang } from "./lang"
 
@@ -40,36 +39,6 @@ export default defineConfig({
       type: CellViewType.MuiltSelect,
       option: option.panle_control,
       label: label.panle_control
-    },
-    {
-      key: "hasTitleThen",
-      type: CellViewType.Select,
-      label: label.has_title_then,
-      help: help.has_title_then,
-      option: option.has_title_then
-    },
-    {
-      key: "removeExcerpt",
-      type: CellViewType.Select,
-      label: label.remove_excerpt,
-      option: option.remove_excerpt,
-      bind: ["hasTitleThen", [1, 2]]
-    },
-    {
-      key: "screenAlwaysOn",
-      type: CellViewType.Switch,
-      label: label.screen_always_on
-    },
-    {
-      key: "lockExcerpt",
-      type: CellViewType.Switch,
-      label: label.lock_excerpt
-    },
-    {
-      key: "autoBackup",
-      type: CellViewType.Switch,
-      label: label.auto_backup,
-      help: help.auto_backup
     }
   ]
 })

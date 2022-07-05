@@ -40,8 +40,8 @@ export class MbTopic {
   readonly hashtags?: string
   readonly docList?: string
   readonly options?: DictObj
-  readonly documents?: Array<any>
-  readonly notes?: Array<any>
+  readonly documents?: Array<MbBook>
+  readonly notes?: Array<MbBookNote>
   hideLinksInMindMapNode: boolean
 }
 

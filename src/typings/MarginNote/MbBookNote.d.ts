@@ -432,7 +432,7 @@ export class MbBookNote {
    *
    * @type {Date}
    */
-  readonly createDate?: Date
+  readonly createDate: Date
   /**
    * Date of the note modified
    *
