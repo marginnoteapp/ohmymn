@@ -13,8 +13,6 @@ import { deepCopy } from "~/utils"
 import { getObjCClassDeclar, showHUD } from "~/utils/common"
 import { readProfile, removeProfile, writeProfile } from "~/utils/profile"
 import { Range } from "~/utils/profile/typings"
-import { removeLastCommentCacheTitle } from "./excerptHandler"
-import { gestureHandlers } from "./handleGestureEvent"
 import { eventHandlers } from "./handleReceivedEvent"
 import { closePanel, layoutViewController } from "./switchPanel"
 
@@ -72,7 +70,6 @@ const notebookWillOpen = (notebookid: string) => {
     })
   // Add hooks, aka observers
   eventHandlers.add()
-  gestureHandlers().add()
 }
 const documentDidOpen = (docmd5: string) => {
   // Switch document, read doc profile
@@ -97,12 +94,10 @@ const documentDidOpen = (docmd5: string) => {
 
 const notebookWillClose = (notebookid: string) => {
   console.log("Close a notebook", "lifeCycle")
-  removeLastCommentCacheTitle()
   closePanel()
   writeProfile({ range: Range.Notebook, notebookid })
   // Remove hooks, aka observers
   eventHandlers.remove()
-  gestureHandlers().remove()
 }
 
 const documentWillClose = (docmd5: string) => {
@@ -131,7 +126,6 @@ const addonWillDisconnect = () => {
 const sceneWillResignActive = () => {
   // or go to the background
   console.log("Window is inactivation", "lifeCycle")
-  removeLastCommentCacheTitle()
   !MN.isMac && closePanel()
   if (self.docmd5)
     writeProfile({

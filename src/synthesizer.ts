@@ -115,6 +115,7 @@ function isModuleAutoON(key: AutoModuleKeyType) {
     quickSwitch.includes(moduleKeys.indexOf(key)) &&
     //@ts-ignore
     (self.globalProfile[key]?.on ??
+      //@ts-ignore
       self.docProfile[key]?.on ??
       self.notebookProfile[key] ??
       false)

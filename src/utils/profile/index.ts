@@ -233,7 +233,7 @@ const writeProfile2Card = (node: MbBookNote) => {
     node.excerptText = `${lang.profile_manage.prohibit}\nversion: ${
       Addon.version
     }\n${dateFormat(new Date())}`
-    node.noteTitle = `OhMyMN 配置`
+    node.noteTitle = `Export Plus 配置`
     const { childNotes } = node
     if (!childNotes?.length) return
     const data = Base64.encode(

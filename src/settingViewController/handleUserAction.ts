@@ -1,11 +1,8 @@
 import { Addon, MN } from "~/const"
-import { actionKey4Text, actionKey4Card } from "~/dataSource"
-import lang from "~/lang"
-import { checkInputCorrect, moduleKeys, ModuleKeyType } from "~/synthesizer"
+import { checkInputCorrect, ModuleKeyType } from "~/synthesizer"
 import { UITableView, IRowInput, IRowSwitch, IRowSelect } from "~/typings"
 import { CellViewType } from "~/typings/enum"
 import { openUrl, postNotification } from "~/utils/common"
-import popup from "~/utils/popup"
 import { byteLength } from "~/utils/text"
 import { _isModuleOFF } from "./settingView"
 
@@ -107,28 +104,6 @@ const selectAction = async (param: {
   } else {
     const selections = row.selections
 
-    if (
-      row.key == "quickSwitch" &&
-      !selections.includes(moduleKeys.indexOf("gesture")) &&
-      selection == moduleKeys.indexOf("gesture")
-    ) {
-      const { gesture } = lang.handle_user_action
-      const { option } = await popup(
-        {
-          title: Addon.title,
-          message: gesture.alert,
-          buttons: gesture.option
-        },
-        ({ buttonIndex }) => ({
-          option: buttonIndex
-        })
-      )
-      if (option === 0) {
-        openUrl(gesture.doc)
-        return
-      } else if (option === -1) return
-    }
-
     const nowSelect = row.selections.includes(selection)
       ? selections.filter(item => item != selection)
       : [selection, ...selections]
@@ -161,32 +136,11 @@ const clickSelectButton = (sender: UIButton) => {
   const height = 44
   const zero = 0.00001
   const cacheModuleOFF: Partial<Record<ModuleKeyType, boolean>> = {}
-  const isHidden = (sectionKey: string, rowKey: string, index: number) => {
-    if (sectionKey === "gesture") {
-      try {
-        const { module } = rowKey.includes("selectionBar")
-          ? actionKey4Text[index]
-          : actionKey4Card[index]
-        if (!module) return false
-        const status = cacheModuleOFF[module]
-        if (status !== undefined) {
-          return status
-        } else {
-          const status = _isModuleOFF(module)
-          cacheModuleOFF[module] = status
-          return status
-        }
-      } catch {
-        return true
-      }
-    } else return false
-  }
-
   menuController.commandTable = row.option.map((item, index) => ({
     title: item,
     object: self,
     selector: "selectAction:",
-    height: isHidden(section.key, row.key, index) ? zero : height,
+    height,
     param: {
       indexPath,
       menuController,

@@ -1,7 +1,4 @@
 import { Addon, MN } from "~/const"
-import handleExcerpt, {
-  removeLastCommentCacheTitle
-} from "~/jsExtension/excerptHandler"
 import { layoutViewController } from "~/jsExtension/switchPanel"
 import lang from "~/lang"
 import { EventHandler } from "~/typings"
@@ -25,10 +22,6 @@ export const eventHandlers = eventHandlerController([
   Addon.key + "ButtonClick",
   Addon.key + "SelectChange",
   Addon.key + "SwitchChange",
-  "OCRForNote",
-  "OCRImageEnd",
-  "OCRImageBegin",
-  "EndOCRForNote",
   "PopupMenuOnNote",
   "ProcessNewExcerpt",
   "ChangeExcerptRange",
@@ -90,19 +83,6 @@ const onInputOver: EventHandler = sender => {
   saveProfile(name, key, content)
   updateProfileTemp(key, content)
   showHUD(content ? lang.input_saved : lang.input_clear)
-}
-
-const onOCRImageBegin: EventHandler = sender => {
-  if (!isThisWindow(sender)) return
-  self.OCROnline.status = "begin"
-  console.log("OCR begin", "ocr")
-}
-
-const onOCRImageEnd: EventHandler = async sender => {
-  if (!isThisWindow(sender)) return
-  self.OCROnline.status = "end"
-  self.OCROnline.times = 1
-  console.log("OCR end", "ocr")
 }
 
 const onPopupMenuOnSelection: EventHandler = sender => {
@@ -171,27 +151,17 @@ const onClosePopupMenuOnNote: EventHandler = async sender => {
 const onChangeExcerptRange: EventHandler = sender => {
   if (!isThisWindow(sender)) return
   console.log("Change excerpt range", "event")
-  self.noteid = sender.userInfo.noteid
-  const note = MN.db.getNoteById(self.noteid)!
   tmp.isChangeExcerptRange = true
-  handleExcerpt(note, tmp.lastExcerptText)
 }
 
 const onProcessNewExcerpt: EventHandler = sender => {
   if (!isThisWindow(sender)) return
   console.log("Process new excerpt", "event")
-  self.noteid = sender.userInfo.noteid
-  const note = MN.db.getNoteById(self.noteid)!
   tmp.isProcessNewExcerpt = true
-  if (self.globalProfile.addon.lockExcerpt) tmp.lastExcerptText = "😎"
-  removeLastCommentCacheTitle()
-  handleExcerpt(note)
 }
 
 export default {
   onInputOver,
-  onOCRImageBegin,
-  onOCRImageEnd,
   onButtonClick,
   onSelectChange,
   onSwitchChange,

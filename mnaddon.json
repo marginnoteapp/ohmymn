@@ -1,11 +1,11 @@
 {
-  "addonid": "marginnote.extension.ohmymn",
+  "addonid": "marginnote.extension.exportplus",
   "author": "ourongxing",
-  "title": "OhMyMN",
-  "version": "4.0.0 b1",
+  "title": "Export Plus",
+  "version": "0.0.1",
   "marginnote_version_min": "3.7.18",
   "cert_key": "",
-  "global_profile_key": "ohmymn_profile_global_v4",
-  "doc_profile_key": "ohmymn_profile_doc_v4",
-  "notebook_profile_key": "ohmymn_profile_notebook_v4"
+  "global_profile_key": "exportplus_profile_global",
+  "doc_profile_key": "exportplus_profile_doc",
+  "notebook_profile_key": "exportplus_profile_notebook"
 }
