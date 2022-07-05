@@ -1,11 +1,11 @@
 {
-  "addonid": "marginnote.extension.ohmymn",
+  "addonid": "marginnote.extension.studyplan",
   "author": "ourongxing",
-  "title": "OhMyMN",
+  "title": "Study Plan",
   "version": "4.0.0 b1",
   "marginnote_version_min": "3.7.18",
   "cert_key": "",
-  "global_profile_key": "ohmymn_profile_global_v4",
-  "doc_profile_key": "ohmymn_profile_doc_v4",
-  "notebook_profile_key": "ohmymn_profile_notebook_v4"
+  "global_profile_key": "studyplan_profile_global_v4",
+  "doc_profile_key": "studyplan_profile_doc_v4",
+  "notebook_profile_key": "studyplan_profile_notebook_v4"
 }

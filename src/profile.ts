@@ -34,28 +34,6 @@ const globalProfilePreset = {
     selectionBarSwipeRight: [0],
     selectionBarSwipeLeft: [0]
   },
-  autocomplete: {
-    on: false,
-    fillWordInfo: [0],
-    customFill:
-      "{{#phonetic}}🔈[{{phonetic}}] {{/phonetic}} {{collins}}\n{{zh}}{{#tags}}\n🏷 {{tags}}{{/tags}}",
-    selectMeaning: false,
-    autoContext: false,
-    translateContext: false
-  },
-  autoformat: {
-    on: false,
-    preset: [],
-    customFormat: "",
-    formatTitle: false
-  },
-  anotherautotitle: {
-    on: false,
-    preset: [],
-    changeTitleNoLimit: false,
-    wordCount: "[10, 5]",
-    customBeTitle: ""
-  },
   anotherautodef: {
     on: false,
     preset: [],
@@ -65,77 +43,6 @@ const globalProfilePreset = {
     customTitleSplit: "",
     customDefLink: "",
     customExtractTitle: ""
-  },
-  autolist: {
-    on: false,
-    preset: [],
-    customList: ""
-  },
-  autoreplace: {
-    on: false,
-    preset: [],
-    customReplace: ""
-  },
-  autotag: {
-    on: false,
-    preset: [],
-    customTag: ""
-  },
-  autocomment: {
-    on: false,
-    preset: [],
-    citation: `(/^.*$/gs, "{{doc.author}} ( {{doc.publicationDate}} ) {{doc.title}}.{{doc.publisher}}, {{doc.publicationPlace}}.P{{page.real.start}}{{#page.real.end}}-P{{page.real.end}}{{/page.real.end}}", 1)`,
-    customComment: ""
-  },
-  autostyle: {
-    on: false,
-    preset: [],
-    wordCountArea: "[10, 5, 10]",
-    showArea: false,
-    defaultTextExcerptColor: [0],
-    defaultPicExcerptColor: [0],
-    defaultTextExcerptStyle: [0],
-    defaultPicExcerptStyle: [0]
-  },
-  copysearch: {
-    multipleTitles: [0],
-    multipleExcerpts: [0],
-    customContent: "[{{title}}]({{link}})",
-    showSearchEngine: false,
-    separatorSymbols: "\\n\\n",
-    whichPartofCard: [0],
-    searchChineseText: "https://www.bing.com/search?q={{keyword}}&ensearch=0",
-    searchEnglishText: "https://www.bing.com/search?q={{keyword}}&ensearch=1",
-    searchAcademic: "https://scholar.google.com.hk/scholar?q={{keyword}}",
-    searchQuestion: "https://www.zhihu.com/search?q={{keyword}}",
-    searchWord: "eudic://dict/{{keyword}}",
-    searchTranslation: "https://www.deepl.com/zh/translator#en/zh/{{keyword}}",
-    searchOtherText: ""
-  },
-  autoocr: {
-    baiduSecretKey: "",
-    baiduApiKey: "",
-    lang: [0],
-    formulaOCRProviders: [0],
-    markdown: [0],
-    mathpixAppKey: "",
-    showKey: true
-  },
-  autotranslate: {
-    on: false,
-    wordCount: "[10, 5]",
-    baiduSecretKey: "",
-    baiduAppID: "",
-    baiduThesaurus: false,
-    baiduAdvance: false,
-    translateProviders: [0],
-    caiyunToken: "",
-    showKey: true,
-    hudTime: "3",
-    baiduFromLang: [0],
-    caiyunFromLang: [0],
-    baiduToLang: [0],
-    caiyunToLang: [0]
   },
   additional: {
     backupID: "",
@@ -150,10 +57,6 @@ const globalProfilePreset = {
 const docProfilePreset = {
   magicaction4text: {
     preOCR: false
-  },
-  autoocr: {
-    on: false,
-    lang: [0]
   }
 }
 

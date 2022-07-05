@@ -42,7 +42,7 @@ const zh = {
 }
 
 const en: typeof zh = {
-  link: "https://www.notion.so/huangkewei/ohmymn-wiki-faea66243fb54149b9e7067f61142a9d",
+  link: "https://www.notion.so/huangkewei/studyplan-wiki-faea66243fb54149b9e7067f61142a9d",
   option: {
     profile: ["Profile 1", "Profile 2", "Profile 3", "Profile 4", "Initialize"],
     remove_excerpt: ["Remove Now", "Remove Later", "Not Remove"],
@@ -80,7 +80,7 @@ const en: typeof zh = {
     auto_backup:
       "First you need to do, MagicAction for Card —> Manage Profile -> Write Profile",
     has_title_then:
-      "Drag and drop the selection to merge into the card, and if a new title will be created by ohmymn, then"
+      "Drag and drop the selection to merge into the card, and if a new title will be created by studyplan, then"
   }
 }
 

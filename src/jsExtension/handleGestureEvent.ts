@@ -273,6 +273,7 @@ const onSwipeUpOnMindMapView: GestureHandler = sender => {
     sender
   )
 }
+
 const onSwipeDownOnMindMapView: GestureHandler = sender => {
   const { singleBarSwipeDown, muiltBarSwipeDown, selectionBarSwipeDown } =
     self.globalProfile.gesture
@@ -283,6 +284,7 @@ const onSwipeDownOnMindMapView: GestureHandler = sender => {
     sender
   )
 }
+
 const onSwipeLeftOnMindMapView: GestureHandler = sender => {
   const { singleBarSwipeLeft, muiltBarSwipeLeft, selectionBarSwipeLeft } =
     self.globalProfile.gesture
@@ -293,6 +295,7 @@ const onSwipeLeftOnMindMapView: GestureHandler = sender => {
     sender
   )
 }
+
 const onSwipeRightOnMindMapView: GestureHandler = sender => {
   const { singleBarSwipeRight, muiltBarSwipeRight, selectionBarSwipeRight } =
     self.globalProfile.gesture
