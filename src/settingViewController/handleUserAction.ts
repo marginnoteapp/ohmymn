@@ -33,11 +33,6 @@ const tableViewDidSelectRowAtIndexPath = async (
           row,
           type: "card"
         })
-      else if (sec.key === "magicaction4text")
-        postNotification(Addon.key + "ButtonClick", {
-          row,
-          type: "text"
-        })
   }
 }
 

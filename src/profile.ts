@@ -13,13 +13,7 @@ const globalProfilePreset = {
     panelHeight: [1],
     autoBackup: false
   },
-  magicaction4card: {
-    smartSelection: false,
-    defaultMergeText: "\\n"
-  },
-  magicaction4text: {
-    noteOptions: []
-  },
+  magicaction4card: {},
   gesture: {
     singleBarSwipeUp: [0],
     singleBarSwipeDown: [0],
@@ -54,11 +48,7 @@ const globalProfilePreset = {
 }
 
 // Each document has a independent profile
-const docProfilePreset = {
-  magicaction4text: {
-    preOCR: false
-  }
-}
+const docProfilePreset = {}
 
 const notebookProfilePreset = {
   addon: {

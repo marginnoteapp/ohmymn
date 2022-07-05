@@ -1,7 +1,6 @@
 import { MN } from "~/const"
 import lang from "~/lang"
 import { PanelControl } from "~/modules/addon/typings"
-import { mainOCR as autoocr } from "~/modules/autoocr/utils"
 import { checkInputCorrect, actions4text, actions4card } from "~/synthesizer"
 import { IRowButton, MbBookNote } from "~/typings"
 import { CellViewType, UIAlertViewStyle } from "~/typings/enum"
@@ -13,7 +12,6 @@ import {
 } from "~/utils/note"
 import popup from "~/utils/popup"
 import { getMNLinkValue, manageProfileAction } from "~/utils/profile"
-import handleTextAction from "./handleTextAction"
 import { closePanel } from "./switchPanel"
 
 export default async (
@@ -89,122 +87,29 @@ const handleMagicAction = async ({
   content?: string
 }) => {
   try {
-    if (type === "text") {
-      const { currentDocumentController } =
-        MN.studyController().readerController
-      const imageFromSelection = currentDocumentController
-        .imageFromSelection()
-        ?.base64Encoding()
-      if (!imageFromSelection) {
-        showHUD(lang.not_select_text, 2)
-        return
-      }
-      const text = self.docProfile.magicaction4text.preOCR
-        ? (await autoocr(imageFromSelection)) ??
-          currentDocumentController.selectionText ??
-          ""
-        : currentDocumentController.selectionText ?? ""
+    const nodes: MbBookNote[] = []
+    key != "filterCards" &&
+      self.globalProfile.addon.panelControl.includes(
+        PanelControl.CompleteClose
+      ) &&
+      closePanel()
 
-      const res: string | undefined = await actions4text[key]({
-        text,
-        imgBase64: imageFromSelection,
+    // Promise can not be placed in undoGroupingWithRefresh()
+    if (actions4card[key] instanceof Promise)
+      actions4card[key]({
+        content,
+        nodes,
         option
       })
-      res && (await handleTextAction(res, key))
-    } else if (type === "card") {
-      let nodes: MbBookNote[] = []
-      key != "filterCards" &&
-        self.globalProfile.addon.panelControl.includes(
-          PanelControl.CompleteClose
-        ) &&
-        closePanel()
-
-      if (self.customSelectedNodes.length) {
-        nodes = self.customSelectedNodes
-        self.customSelectedNodes = []
-        HUDController.hidden()
-      } else {
-        nodes = getSelectNodes()
-        if (!nodes.length) {
-          showHUD(lang.not_select_card)
-          return
-        }
-        // The need for the same level is to avoid the situation where both parent and descendant nodes are selected,
-        // which leads to duplicate processing.
-        const isHavingChildren = nodes.every(
-          node =>
-            nodes[0].parentNote === node.parentNote && node?.childNotes?.length
-        )
-
-        const noNeedSmartSelection =
-          key === "renameTitle" && /#\[(.+)\]/.test(content)
-
-        if (
-          self.globalProfile.magicaction4card.smartSelection &&
-          isHavingChildren &&
-          !noNeedSmartSelection
-        ) {
-          const { option } = await popup(
-            {
-              title: lang.smart_select.title,
-              message:
-                nodes.length > 1
-                  ? lang.smart_select.cards_with_children
-                  : lang.smart_select.card_with_children,
-              type: UIAlertViewStyle.Default,
-              buttons: lang.smart_select.option,
-              canCancel: false
-            },
-            ({ buttonIndex }) => ({
-              option: buttonIndex
-            })
-          )
-
-          if (option !== 0) {
-            const { onlyChildren, onlyFirstLevel, allNodes } = nodes
-              .slice(1)
-              .reduce((acc, node) => {
-                const { onlyChildren, onlyFirstLevel, allNodes } =
-                  getNodeTree(node)
-                acc.allNodes.push(...allNodes)
-                acc.onlyChildren.push(...onlyChildren)
-                acc.onlyFirstLevel.push(...onlyFirstLevel)
-                return acc
-              }, getNodeTree(nodes[0]))
-            nodes = [onlyFirstLevel, onlyChildren, allNodes][option - 1]
-          }
-        }
-      }
-      switch (key) {
-        case "filterCards":
-          self.customSelectedNodes = actions4card.filterCards!({
+    else
+      undoGroupingWithRefresh(
+        () =>
+          void actions4card[key]({
             content,
             nodes,
             option
           })
-          break
-        case "manageProfile":
-          await manageProfileAction(nodes[0], option)
-          break
-        default:
-          // Promise can not be placed in undoGroupingWithRefresh()
-          if (actions4card[key] instanceof Promise)
-            actions4card[key]({
-              content,
-              nodes,
-              option
-            })
-          else
-            undoGroupingWithRefresh(
-              () =>
-                void actions4card[key]({
-                  content,
-                  nodes,
-                  option
-                })
-            )
-      }
-    }
+      )
   } catch (err) {
     console.error(String(err))
   }

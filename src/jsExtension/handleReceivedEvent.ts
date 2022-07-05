@@ -1,7 +1,4 @@
 import { Addon, MN } from "~/const"
-import handleExcerpt, {
-  removeLastCommentCacheTitle
-} from "~/jsExtension/excerptHandler"
 import { layoutViewController } from "~/jsExtension/switchPanel"
 import lang from "~/lang"
 import { EventHandler } from "~/typings"
@@ -18,7 +15,6 @@ import {
   updateProfileTemp
 } from "~/utils/profile"
 import { Range } from "~/utils/profile/typings"
-import handleMagicAction from "./magicActionHandler"
 
 export const eventHandlers = eventHandlerController([
   Addon.key + "InputOver",
@@ -42,7 +38,6 @@ const onButtonClick: EventHandler = async sender => {
   // For magicaction
   console.log("Click a button", "event")
   const { row, type } = sender.userInfo
-  handleMagicAction(type, row)
 }
 
 const onSwitchChange: EventHandler = sender => {
@@ -174,7 +169,6 @@ const onChangeExcerptRange: EventHandler = sender => {
   self.noteid = sender.userInfo.noteid
   const note = MN.db.getNoteById(self.noteid)!
   tmp.isChangeExcerptRange = true
-  handleExcerpt(note, tmp.lastExcerptText)
 }
 
 const onProcessNewExcerpt: EventHandler = sender => {
@@ -184,8 +178,6 @@ const onProcessNewExcerpt: EventHandler = sender => {
   const note = MN.db.getNoteById(self.noteid)!
   tmp.isProcessNewExcerpt = true
   if (self.globalProfile.addon.lockExcerpt) tmp.lastExcerptText = "😎"
-  removeLastCommentCacheTitle()
-  handleExcerpt(note)
 }
 
 export default {
