@@ -1,5 +1,39 @@
 import { IConfig } from "./typings"
 import { ReplaceParam } from "./utils/input"
+interface Data {
+  globalData: {
+    notebookNum: number
+    notebook: {
+      title: string
+      creatTime: number
+      docNum: number
+      readRate: number
+    }[]
+  }
+  dailyData: {
+    // 关闭或开始的日期，用于对比是否是同一天
+    flag: number
+    day: {
+      // 打开 MN
+      open: number
+      close: number
+      // 打开笔记本
+      notebook: {
+        title: string
+        open: number
+        close: number
+        time: number
+        // 打开文档
+        docChangeRoute: {
+          title: string
+          open: number
+          close: number
+          time: number
+        }[]
+      }[]
+    }
+  }[]
+}
 
 const globalProfilePreset = {
   addon: {
@@ -40,10 +74,8 @@ const globalProfilePreset = {
   },
   additional: {
     backupID: "",
-    autoocr: {
-      lastGetToken: 0,
-      baiduToken: ""
-    }
+    globalData: {} as Data["globalData"],
+    dailyData: [] as Data["dailyData"]
   }
 }
 

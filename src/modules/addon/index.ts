@@ -7,7 +7,7 @@ const { label, help, option } = lang
 export default defineConfig({
   name: Addon.title,
   key: "addon",
-  intro: `当前版本: ${Addon.version}`,
+  intro: `基于 OhMyMN v4，当前版本: ${Addon.version}`,
   settings: [
     {
       help: help.profile,

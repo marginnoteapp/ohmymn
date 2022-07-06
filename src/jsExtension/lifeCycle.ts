@@ -45,7 +45,7 @@ const addonDidConnect = () => {
 const sceneWillConnect = () => {
   console.log("Open a new window", "lifeCycle")
   _window = self.window
-  statistics()
+  statistics.openMN()
   // Multiple windows will share global variables, so they need to be saved to self.
   self.panelStatus = false
   self.globalProfile = deepCopy(globalProfilePreset)
@@ -66,6 +66,7 @@ const sceneWillConnect = () => {
 const notebookWillOpen = (notebookid: string) => {
   console.log("Open a notebook", "lifeCycle")
   self.notebookid = notebookid
+  statistics.openNoteBook(notebookid)
   if (self.docmd5)
     readProfile({
       range: Range.Notebook,
@@ -93,12 +94,14 @@ const documentDidOpen = (docmd5: string) => {
       self.globalProfile.addon.screenAlwaysOn
   }
   self.docmd5 = docmd5
+  statistics.openDoc(docmd5)
   console.log("Open a document", "lifeCycle")
 }
 
 const notebookWillClose = (notebookid: string) => {
   console.log("Close a notebook", "lifeCycle")
   closePanel()
+  statistics.closeNoteBook(notebookid)
   writeProfile({ range: Range.Notebook, notebookid })
   // Remove hooks, aka observers
   eventHandlers.remove()
@@ -107,13 +110,15 @@ const notebookWillClose = (notebookid: string) => {
 
 const documentWillClose = (docmd5: string) => {
   console.log("Close a document", "lifeCycle")
+  statistics.closeDoc(docmd5)
   writeProfile({ range: Range.Doc, docmd5 })
 }
 
 // Not triggered on ipad
 const sceneDidDisconnect = () => {
   console.log("Close a window", "lifeCycle")
-  if (self.docmd5)
+  statistics.closeMN()
+  self.docmd5 &&
     writeProfile({
       range: Range.All,
       docmd5: self.docmd5,
@@ -132,13 +137,15 @@ const sceneWillResignActive = () => {
   // or go to the background
   console.log("Window is inactivation", "lifeCycle")
   !MN.isMac && closePanel()
-  if (self.docmd5)
+  self.docmd5 &&
     writeProfile({
       range: Range.All,
       docmd5: self.docmd5,
       notebookid: self.notebookid
     })
 }
+
+// 切换后台本质上也是关闭，因为它离开了，但是切换后台之后，如果回来 MN 其实就已经是打开状态了，文档和笔记本都是有的，和完全退出 MN 再打开是不一样的。
 const sceneDidBecomeActive = () => {
   layoutViewController()
   // or go to the foreground
